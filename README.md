@@ -1,7 +1,13 @@
 # Sites Monitoring Utility
 
-[TODO. There will be project description]
+This script checks for sites status. For each url in url.txt script displays if server responds with HTTP 200 and information about expiration date.
 
-# Project Goals
+### Quickstart
+Input into urls.txt urls you need to check and type into your console:
+```
+$python check_sites_health.py
+```
+
+### Project Goals
 
 The code is written for educational purposes. Training course for web-developers - [DEVMAN.org](https://devman.org)

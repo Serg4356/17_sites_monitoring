@@ -2,7 +2,21 @@ import whois
 import requests
 import datetime
 import types
+import argparse
 
+
+
+def create_parser():
+    parser = argparse.ArgumentParser(
+        description='''
+        Program checks sites health: is server respond with 200
+        and if domain payment expires in 30 days
+        ''')
+    group = parser.add_mutually_exclusive_group(required=True)
+    group.add_argument('-u', '--url', help='Input site url')
+    group.add_argument('-p', '--path', help='Input path to txt file with urls')
+
+    return parser
 
 
 def load_urls4check(path):
@@ -29,11 +43,16 @@ def get_domain_expiration_date(domain_name):
 
 
 if __name__ == '__main__':
-    urls4check = load_urls4check('urls.txt')
-    for url in urls4check:
-        domain = url.split('/')[-1]
-        print('url: {}\nserver response ok: {}\ndomain '
-              'expiration date: {}'.format(url,
-                                           is_server_respond_with_200(url),
-                                           get_domain_expiration_date(domain)))
+	parser = create_parser()
+	arguments = parser.parse_args()
+	if arguments.url is None:
+		urls4check = load_urls4check(arguments.path)
+	else:
+		urls4check = [arguments.url]
+	for url in urls4check:
+		domain = url.split('/')[-1]
+		print('url: {}\nserver response ok: {}\ndomain '
+			'expiration date: {}'.format(url,
+                                         is_server_respond_with_200(url),
+                                         get_domain_expiration_date(domain)))
 

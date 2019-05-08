@@ -22,7 +22,6 @@ def create_parser():
                         default=30,
                         help='Days of domain expiration'
                         ' check (30 for default)')
-
     return parser
 
 

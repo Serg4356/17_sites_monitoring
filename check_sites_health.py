@@ -8,7 +8,7 @@ import argparse
 def create_parser():
     parser = argparse.ArgumentParser(
         description='''
-        Program checks sites health: is server respond with 200
+        Program checks sites health: is server respond with less than 400
         and if domain payment expires in 30 days
         ''')
     group = parser.add_mutually_exclusive_group(required=True)

@@ -71,9 +71,8 @@ if __name__ == '__main__':
             print(url)
             print('May be there is a mistake in url')
         domain_expiration_date = get_domain_expiration_date(domain)
+        expired_status = is_expired(domain_expiration_date, arguments.days)
         print(('url: {}\nserver response ok: {}\ndomain '
                'expiration date: {}'.format(url,
                                             server_respond_ok,
-                                            is_expired(
-                                                domain_expiration_date,
-                                                arguments.days))))
+                                            expired_status)))

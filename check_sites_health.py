@@ -50,7 +50,8 @@ def is_expired(expiration_date, days_before_expiration):
         return ('Domain name has been paid for'
                 ' more than {} days'.format(days_before_expiration))
     else:
-        return f'Domain name payment expires in {days_before_expiration} days'
+        return ('Domain name payment'
+                ' expires in {} days'.format(days_before_expiration))
 
 
 if __name__ == '__main__':

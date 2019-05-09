@@ -44,14 +44,9 @@ def get_domain_expiration_date(domain_name):
 
 def is_expired(expiration_date, days_before_expiration):
     if not expiration_date:
-        return 'Whois has no information about expiration date'
+        return
     time_delta = expiration_date.replace(tzinfo=None) - datetime.datetime.now()
-    if time_delta.days > days_before_expiration:
-        return ('Domain name has been paid for'
-                ' more than {} days'.format(days_before_expiration))
-    else:
-        return ('Domain name payment'
-                ' expires in {} days'.format(days_before_expiration))
+    return time_delta.days > days_before_expiration
 
 
 if __name__ == '__main__':
@@ -72,7 +67,16 @@ if __name__ == '__main__':
             print('May be there is a mistake in url')
         domain_expiration_date = get_domain_expiration_date(domain)
         expired_status = is_expired(domain_expiration_date, arguments.days)
+        if expired_status is None:
+            expired_status_message = ('Whois has no information'
+                                      ' about expiration date')
+        elif expired_status:
+            expired_status_message = ('Domain name has been paid for more '
+                                      'than {} days'.format(arguments.days))
+        else:
+            expired_status_message = ('Domain name payment expires in '
+                                      '{} days'.format(arguments.days))
         print(('url: {}\nserver response ok: {}\ndomain '
                'expiration date: {}'.format(url,
                                             server_respond_ok,
-                                            expired_status)))
+                                            expired_status_message)))
